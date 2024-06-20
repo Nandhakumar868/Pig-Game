@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body{
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    background-image: linear-gradient(to right, #753682 0%, #bf2e34 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game{
+    position: relative;
+    width: 60rem;
+    height: 35rem;
+    background-color: rgba(255, 255, 255, 0.35);
+    filter: blur();
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+    text-align: center;
+}
+
+.player{
+    text-align: center;
+    width: 30rem;
+    padding: 5rem 9rem;
+    h1{
+        font-size: 2.5rem;
+    }
+}
+
+.high_score{
+    font-size: 1.5rem;
+    margin-bottom: 8rem;
+}
+
+.current{
+    background-color: #c7365f;
+    border-radius: 5px;
+    padding: 10px 10px;
+    p{
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+    span{
+        font-size: 1.25rem;
+    }
+}
+
+.player-active{
+    background-color: rgba(255, 255, 255, 0.4);
+    h1{
+        font-size: 3rem;
+        font-weight: 500;
+    }
+    .high_score{
+        font-weight: 500;
+    }
+    .current{
+        opacity: 1;
+    }
+}
+
+.btn{
+    position: absolute;
+    border: none;
+    border-radius: 10rem;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255, 0.55);
+}
+
+.new-game{
+    top: 5%;
+    left: 42%;
+}
+
+.roll-dice{
+    bottom: 23%;
+    left: 43%;
+}
+
+.hold{
+    bottom: 10%;
+    left: 44%;
+}
+
+.dice{
+    position: absolute;
+    display: none;
+    top: 35%;
+    left: 46%;
+    height: 80px;
+    width: 80px;
+}
