@@ -1,72 +1,100 @@
-let player_1 = document.querySelector('.player-1');
-let player_2 = document.querySelector('.player-2');
+"use strict";
+// Selecting Players
 
-let highScore1 = document.getElementById('high-score-0');
-let highScore2 = document.getElementById('high-score-1');
+const player0 = document.querySelector(".player-0");
+const player1 = document.querySelector(".player-1");
 
-let currentScore1 = document.getElementById('score-0');
-let currentScore2 = document.getElementById('score-1');
+// Selecting Elements
+const score0El = document.querySelector(".highScore-0");
+const score1El = document.querySelector(".highScore-1");
 
-let image = document.querySelector('.dice');
+const current0El = document.querySelector(".current-0");
+const current1El = document.querySelector(".current-1");
 
-let newGame = document.querySelector('.new-game');
-let rollDice = document.querySelector('.roll-dice');
-let holdGame = document.querySelector('.hold');
+// Selecting dice
+const dice = document.querySelector(".dice");
 
-let score1 = 0;
-let score2 = 0;
+// Selecting Buttons
+const btnNewGame = document.querySelector(".new-game");
+const btnRollDice = document.querySelector(".roll-dice");
+const btnHold = document.querySelector(".hold");
 
-let totalScore1 = 0;
-let totalScore2 = 0;
+// Initializing scores
+let scores, currentScore, activePlayer, playing;
 
-let imageArray = ['images/dice-1.png','images/dice-2.png','images/dice-3.png','images/dice-4.png','images/dice-5.png','images/dice-6.png']
+// Starting Conditions
+const init = () => {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
 
-let randomNumber = 0;
+  dice.classList.add("hidden");
 
-const diceImage = () => {
-    randomNumber = Math.trunc(Math.random()*6);
+  player0.classList.remove("player-winner");
+  player1.classList.remove("player-winner");
+  player0.classList.add("player-active");
 
-    image.src = `${imageArray[randomNumber]}`;
-    image.style.display = 'inline';
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+};
+init();
+
+const switchPlayer = () => {
+  document.querySelector(`.current-${activePlayer}`).textContent = 0;
+  currentScore = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0.classList.toggle("player-active");
+  player1.classList.toggle("player-active");
 };
 
-const playerFunction = (currentScore,score,highScore, totalScore) => {
-    currentScore.textContent = score;
-    holdGame.addEventListener('click', () => {
-        highScore.textContent = totalScore;
-        currentScore.textContent = 0;
-        player_1.classList.contains('player-active') ? totalScore1 += score : totalScore2 += score
-        score1 = 0;
-        score2 = 0;
-    })
-}
+btnRollDice.addEventListener("click", () => {
+  if (playing) {
+    // Generate a random(from 1 to 6) to display dice and to add current score
+    const randomNumber = Math.trunc(Math.random() * 6) + 1;
 
-rollDice.addEventListener('click', () => {
-    diceImage();
+    // Displaying the dice based on random number
+    dice.classList.remove("hidden");
+    dice.src = `images/dice-${randomNumber}.png`;
 
-    if(randomNumber === 0){
-        player_1.classList.contains('player-active') ? (
-            player_1.classList.remove('player-active'),
-            player_2.classList.add('player-active')
-        ) : (
-            player_1.classList.add('player-active'),
-            player_2.classList.remove('player-active')
-        )
-        score1 = 0;
-        totalScore1 = 0;
-        currentScore1.textContent = score1;
-        score2 = 0;
-        totalScore2 = 0;
-        currentScore2.textContent = score2;
+    // Check for dice roll 1
+    if (randomNumber !== 1) {
+      currentScore += randomNumber;
+      document.querySelector(`.current-${activePlayer}`).textContent =
+        currentScore;
+    } else {
+      // Switch Player
+      switchPlayer();
     }
-
-    player_1.classList.contains('player-active') ? (
-        randomNumber !== 0 ? score1 += randomNumber+1 : score1 = score1,
-        // totalScore1 += score1,
-        playerFunction(currentScore1,score1, highScore1,totalScore1)
-    ) : (
-        randomNumber !== 0 ? score2 += randomNumber+1 : score2 = score2,
-        // totalScore2 += Number(currentScore2.textContent),
-        playerFunction(currentScore2,score2,highScore2, totalScore2)
-    )
+  }
 });
+
+btnHold.addEventListener("click", () => {
+  if (playing) {
+    // Add current score to active player's score
+    scores[activePlayer] += currentScore;
+    document.querySelector(`.highScore-${activePlayer}`).textContent =
+      scores[activePlayer];
+
+    // Check score is greater than or equal to 100
+    if (scores[activePlayer] >= 100) {
+      // Finish the game
+      document
+        .querySelector(`.player-${activePlayer}`)
+        .classList.add("player-winner");
+      document
+        .querySelector(`.player-${activePlayer}`)
+        .classList.remove("player-active");
+      playing = false;
+      dice.classList.add("hidden");
+    } else {
+      switchPlayer();
+    }
+  }
+});
+
+// Resetting the game
+btnNewGame.addEventListener("click", init);

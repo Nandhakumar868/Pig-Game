@@ -1,102 +1,176 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-body{
-    font-family: 'Nunito', sans-serif;
+*{
     margin: 0;
     padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Nunito', sans-serif;
     font-weight: 400;
     background-image: linear-gradient(to right, #753682 0%, #bf2e34 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: #333;
 }
 
+/* Layout */
 .game{
     position: relative;
-    width: 60rem;
-    height: 35rem;
+    width: 100rem;
+    height: 60rem;
     background-color: rgba(255, 255, 255, 0.35);
+    /* backdrop-filter: blur(200px); */
     filter: blur();
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
     border-radius: 9px;
     overflow: hidden;
     display: flex;
     text-align: center;
+    text-transform: uppercase;
 }
 
+/* Single Player */
 .player{
-    text-align: center;
+    flex: 50%;
     width: 30rem;
-    padding: 5rem 9rem;
-    h1{
-        font-size: 2.5rem;
-    }
+    padding: 9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.75s;
 }
 
-.high_score{
-    font-size: 1.5rem;
-    margin-bottom: 8rem;
+.name{
+    font-size: 4rem;
+    position: relative;
+    margin-bottom: 1rem;
+    letter-spacing: 1rem;
+    word-spacing: 2rem;
+    font-weight: 300;
 }
 
-.current{
-    background-color: #c7365f;
-    border-radius: 5px;
-    padding: 10px 10px;
-    p{
-        font-size: 1.5rem;
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-    }
-    span{
-        font-size: 1.25rem;
-    }
+.totalScore{
+    font-size: 8rem;
+    font-weight: 300;
+    color: #c7365f;
+    margin-bottom: auto;
 }
 
+/* Active Player */
 .player-active{
     background-color: rgba(255, 255, 255, 0.4);
-    h1{
-        font-size: 3rem;
-        font-weight: 500;
+    .name{
+        font-weight: 700;
     }
-    .high_score{
-        font-weight: 500;
+    .totalScore{
+        font-weight: 400;
     }
     .current{
         opacity: 1;
     }
 }
 
+.current{
+    background-color: #c7365f;
+    opacity: 0.8;
+    border-radius: 9px;
+    color: #fff;
+    width: 65%;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.75s;
+}
+
+.current-label{
+    margin-bottom: 1rem;
+    font-size: 1.7rem;
+    color: #ddd;
+}
+
+.currentScore{
+    font-size: 3.5rem;
+}
+
+/* Elements */
 .btn{
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #444;
+    background: none;
     border: none;
-    border-radius: 10rem;
-    font-size: 1.2rem;
-    padding: 10px 15px;
+    font-family: inherit;
+    font-size: 1.8rem;
+    text-transform: uppercase;
     cursor: pointer;
-    background-color: rgb(255, 255, 255, 0.55);
+    font-weight: 400;
+    transition: all 0.2s;
+
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* backdrop-filter: blur(10px); */
+
+    padding: 0.7rem 2.5rem;
+    border-radius: 50rem;
+    box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
+}
+
+.btn::first-letter{
+    font-size: 2.4rem;
+    display: inline-block;
+    margin-right: 0.7rem;
 }
 
 .new-game{
-    top: 5%;
-    left: 42%;
+    top: 4rem;
 }
 
 .roll-dice{
-    bottom: 23%;
-    left: 43%;
+    top: 39.3rem;
 }
 
 .hold{
-    bottom: 10%;
-    left: 44%;
+    top: 46.1rem;
+}
+
+.btn:active{
+    transform: translate(-50%, 3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.btn:focus{
+    outline: none;
 }
 
 .dice{
     position: absolute;
+    left: 50%;
+    top: 16.5rem;
+    transform: translateX(-50%);
+    height: 10rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
+}
+
+/* Winner */
+.player-winner{
+    background-color: #2f2f2f;
+}
+
+.player-winner .name{
+    font-weight: 700;
+    color: #c7365f;
+}
+
+/* Hiding Dice */
+.hidden{
     display: none;
-    top: 35%;
-    left: 46%;
-    height: 80px;
-    width: 80px;
 }
